@@ -1,6 +1,6 @@
 Docksal config directory for Drupal for the Web Content Management as a Service platform (WCMaaS).
 
-The goal is to keep this up to date with the current state of the platform, app servers, version etc... so tenants can keep their lcoal development environments up to date.
+The goal is to keep this up to date with the current state of the platform, app servers, version etc... so tenants can keep their local development environments up to date.
 
 Installation:
 1. install [Docksal](http://docksal.io/)
@@ -24,3 +24,6 @@ The init script will do the following
     1. loads the database file in 
     1. sanitizes the user emails
     1. repeats for all db backup files in the directory in alphabetical order, so the first one loaded will be truncated, try to only put one file in the db directory at a time
+
+
+To restart servers type <code>fin reset</code>. To start again with fresh servers and fresh DB import run <code>fin init</code> again.
