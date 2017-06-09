@@ -10,17 +10,17 @@ Installation:
 
 The init script will do the following
 1. start docker servers
-  1. web - apache 2.2
-  1. cli - Command line interface for drush to interact with
-  1. db - MySQL 5.5
-  1. memcached
-  1. memcached
-  1. memcached
-  1. memcached
-  1. mcrouter - for testing
-  1. nutcracker/twemproxy - for testing
+    - web - apache 2.2
+    - cli - Command line interface for drush to interact with
+    - db - MySQL 5.5
+    - memcached
+    - memcached
+    - memcached
+    - memcached
+    - mcrouter - for testing
+    - nutcracker/twemproxy - for testing
 1. import the database 
-  1. truncates the database named default
-  1. loads the database file in 
-  1. sanitizes the user emails
-  1. repeats for all db backup files in the directory in alphabetical order, so the first one loaded will be truncated, try to only put one file in the db directory at a time
+    1. truncates the database named default
+    1. loads the database file in 
+    1. sanitizes the user emails
+    1. repeats for all db backup files in the directory in alphabetical order, so the first one loaded will be truncated, try to only put one file in the db directory at a time
