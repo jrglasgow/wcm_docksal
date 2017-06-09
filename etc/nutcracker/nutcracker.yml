@@ -1,0 +1,15 @@
+bluesteel:
+  listen: 0.0.0.0:11811
+  hash: fnv1a_64
+  distribution: ketama
+  redis: false
+  auto_eject_hosts: true
+  server_retry_timeout: 60000
+  server_failure_limit: 2
+  preconnect: true
+  timeout: 500
+  servers:
+   - memcached1:11211:1
+   - memcached2:11211:1
+   - memcached3:11211:1
+   - memcached4:11211:1

@@ -1,0 +1,90 @@
+# WCMaaS like stack
+#
+# - Apache 2.2
+# - MySQL 5.5
+# - PHP 5.6 / PHP 7.0
+# - Memcached 1.4
+
+version: "2.1"
+
+services:
+  # Web
+  web:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: web
+    depends_on:
+      - cli
+    ports:
+      - "${APACHE_PORT_MAPPING:-80}"
+
+  # DB
+  db:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: db
+
+  # CLI
+  cli:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: cli
+
+  # Memcached
+  memcached1:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: memcached
+    hostname: memcached1
+  memcached2:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: memcached
+    hostname: memcached2
+  memcached3:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: memcached
+    hostname: memcached3
+  memcached4:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: memcached
+    hostname: memcached4
+    
+  mcrouter:
+    hostname: mcrouter
+    image: ${MCROUTER_IMAGE:-m3adow/mcrouter:latest}
+    command: /var/www/.docksal/etc/mcrouter/start.sh
+    ports:
+      - "${MCROUTER_PORT_MAPPING:-5500}"
+    dns:
+      - ${DOCKSAL_DNS1}
+      - ${DOCKSAL_DNS2}
+    depends_on:
+      - memcached1
+      - memcached2
+      - memcached3
+      - memcached4
+    volumes:
+      # Project root volume
+      - project_root:/var/www:ro
+
+  nutcracker:
+    hostname: nutcracker
+    image: ${NUTCRACKER_IMAGE:-5monkeys/twemproxy:0.4.1}
+    command: /usr/local/sbin/nutcracker -c /var/www/.docksal/etc/nutcracker/nutcracker.yml
+    ports:
+      - "${NUTCRACKER_SERVICE_PORT_MAPPING:-22121}"
+      - "${NUTCRACKER_STATS_PORT_MAPPING:-22222}"
+    dns:
+      - ${DOCKSAL_DNS1}
+      - ${DOCKSAL_DNS2}
+    depends_on:
+      - memcached1
+      - memcached2
+      - memcached3
+      - memcached4
+    volumes:
+      # Project root volume
+      - project_root:/var/www:ro
