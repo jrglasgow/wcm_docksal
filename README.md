@@ -1,4 +1,4 @@
-Docksal config directory for Drupal for the Web Content Management as a Service platform.
+Docksal config directory for Drupal for the Web Content Management as a Service platform (WCMaaS).
 
 The goal is to keep this up to date with the current state of the platform, app servers, version etc... so tenants can keep their lcoal development environments up to date.
 
