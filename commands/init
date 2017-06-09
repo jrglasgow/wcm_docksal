@@ -152,7 +152,7 @@ do
   echo -e "${yellow_bg} Importing ${NC}${yellow} $f ...${NC}"
     case "$f" in
       *.sh)     bash $f;;
-      *.sql)    pv $f | fin db import;;
+      *.sql)    echo "UPDATE users SET mail=CONCAT('local_dev-', uid, '@${VIRTUAL_HOST}') WHERE uid <> 0;" | (pv $f && cat) |  fin db import; echo;;
       *.sql.gz) echo "UPDATE users SET mail=CONCAT('local_dev-', uid, '@${VIRTUAL_HOST}') WHERE uid <> 0;" | (pv $f | gunzip && cat) |  fin db import; echo;;
       *)        echo "$0: ignoring $f" ;;
     esac
