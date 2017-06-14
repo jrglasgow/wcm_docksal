@@ -43,10 +43,12 @@ $conf['cache_default_class'] = 'MemCacheDrupal';
 
 $conf['memcache_key_prefix'] = 'tsa2_gov';
 $conf['memcache_servers'] = array(
-    'memcached1:11211' => 'default',
-    'memcached2:11211' => 'default',
-    'memcached3:11211' => 'default',
-    'memcached4:11211' => 'default',
+    //'memcached1:11211' => 'default',
+    //'memcached2:11211' => 'default',
+    //'memcached3:11211' => 'default',
+    //'memcached4:11211' => 'default',
+    'mcrouter:5500' => 'default',
+    //'nutcracker:22121' => 'default'
 );
 $conf['memcache_bins'] = array(
     'cache' => 'default',
