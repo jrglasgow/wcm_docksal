@@ -13,33 +13,25 @@ START_DIRECTORY=`pwd`
 echo "DOCROOT_PATH: $DOCROOT_PATH"
 #cd $DOCROOT_PATH
 
-echo "";
-echo "";
-echo "Clear module list";
-fin drush cc module-list
+#echo "";
+#echo "";
+#echo "Clear Caches"
+#fin drush cr
 
-echo "";
-echo "";
-echo "Rebuild Registry"
-fin drush rr
+#echo "";
+#echo "";
+#echo "Disable Syslog and Autologout modules"
+#fin drush dis syslog autologout -y
 
-echo "";
-echo "";
-echo "Disable Syslog and Autologout modules"
-fin drush dis syslog autologout -y
-
-echo "";
-echo "";
-echo "Enable development modules"
-fin drush en devel search_krumo dblog views_ui context_ui stage_file_proxy diff mail_redirect update xhprof missing_module -y;
+#echo "";
+#echo "";
+#echo "Enable development modules"
+#fin drush en devel search_krumo dblog views_ui context_ui stage_file_proxy diff mail_redirect update xhprof missing_module -y;
 
 
 echo "";
 echo "";
 echo "Run database updates";
 drush updb -y
-
-fin drush dl utf8mb4_convert -y
-fin drush utf8mb4-convert-databases -y
 
 cd $START_DIRECTORY
