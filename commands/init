@@ -217,6 +217,7 @@ MYSQL_HOST_PORT=`fin config env | grep MYSQL | cut -d " " -f 2`
 echo -e "MySQL server can be accessed at ${yellow}${MYSQL_HOST_PORT}${NC}"
 if is_mac; then
 	open "http://${VIRTUAL_HOST}"
+  say "Your Docksal project initialization is completed"
 fi
 
 
