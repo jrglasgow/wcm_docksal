@@ -91,15 +91,21 @@ init_settings ()
     copy_settings_file "${SITEDIR_PATH}/default.settings.php" "${SITEDIR_PATH}/settings.php"
   fi
 
+  echo "checking ${SITEDIR_PATH}/settings.php"
   # ensure settings.local.php is getting loaded
-  if [[ ! -n $(grep "settings.local.php" "${SITEDIR_PATH}/settings.php") ]]
+  if [[ ! -n $(grep "require($local_conf_file_path);" "${SITEDIR_PATH}/settings.php") ]]
   then
+    SETTINGS_FILE="${SITEDIR_PATH}/settings.php"
+    # make the file writable
+    chmod 775 $SETTINGS_FILE
     echo "
 // Load local settings file if it exists.
 \$local_conf_file_path = __DIR__ . '/settings.local.php';
 if (file_exists(\$local_conf_file_path)) {
   require(\$local_conf_file_path);
-}" >> docroot/sites/default/settings.php
+}" >> $SETTINGS_FILE
+    # make the file not writable
+    chmod 555 $SETTINGS_FILE
   fi
 
   echo ""
@@ -189,7 +195,7 @@ fi
 echo -en "${green_bg} DONE! ${NC} "
 echo -e "Open ${yellow}http://${VIRTUAL_HOST}${NC} in your browser to verify the setup."
 MYSQL_HOST_PORT=`fin config env | grep MYSQL | cut -d " " -f 2`
-echo -s "MySQL server can be accessed at ${yellow}${MYSQL_HOST_PORT}${NC}"
+echo -e "MySQL server can be accessed at ${yellow}${MYSQL_HOST_PORT}${NC}"
 if is_mac; then
 	open "http://${VIRTUAL_HOST}"
 fi
