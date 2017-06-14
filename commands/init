@@ -17,7 +17,7 @@ DOCROOT_PATH="${PROJECT_ROOT}/${DOCROOT}"
 SITEDIR_PATH="${DOCROOT_PATH}/sites/${SITE_DIRECTORY}"
 SQL_BACKUP_PATH="${PROJECT_ROOT}/.docksal/db"
 DEVELOP_SCRIPT="${PROJECT_ROOT}/.docksal/commands/develop"
-
+echo "VIRTUAL_HOST: ${VIRTUAL_HOST} - 20"
 #-------------------------- END: Settings --------------------------------
 
 #-------------------------- Helper functions --------------------------------
@@ -152,8 +152,8 @@ do
   echo -e "${yellow_bg} Importing ${NC}${yellow} $f ...${NC}"
     case "$f" in
       *.sh)     bash $f;;
-      *.sql)    echo "UPDATE users SET mail=CONCAT('local_dev-', uid, '@${VIRTUAL_HOST}') WHERE uid <> 0;" | (pv $f && cat) |  fin db import; echo;;
-      *.sql.gz) echo "UPDATE users SET mail=CONCAT('local_dev-', uid, '@${VIRTUAL_HOST}') WHERE uid <> 0;" | (pv $f | gunzip && cat) |  fin db import; echo;;
+      *.sql)    echo "UPDATE users_field_data SET mail=CONCAT('local_dev-', uid, '@${VIRTUAL_HOST}') WHERE uid <> 0;" | (pv $f && cat) |  fin db import; echo;;
+      *.sql.gz) echo "UPDATE users_field_data SET mail=CONCAT('local_dev-', uid, '@${VIRTUAL_HOST}') WHERE uid <> 0;" | (pv $f | gunzip && cat) |  fin db import; echo;;
       *)        echo "$0: ignoring $f" ;;
     esac
 
