@@ -1,0 +1,32 @@
+#!/bin/bash
+
+## Log the user into Drupal
+##
+## Usage: fin login <username>
+## by default the super user will be logged in
+
+is_mac ()
+{
+	local res=$(uname | grep 'Darwin')
+	if [[ "$res" != "" ]]; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+PWD=`pwd`
+
+ABSOLUTE_DOCROOT=$PROJECT_ROOT/$DOCROOT/
+cd $ABSOLUTE_DOCROOT
+COMMAND="fin drush uli ${@}"
+
+# make sure we trim the carriage return if is appears
+LOGIN_URL=`$COMMAND | tr -d '\r'`
+echo $LOGIN_URL
+
+if is_mac; then
+  open $LOGIN_URL
+fi
+
+cd $PWD
