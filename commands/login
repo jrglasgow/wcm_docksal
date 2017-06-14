@@ -3,7 +3,9 @@
 ## Log the user into Drupal
 ##
 ## Usage: fin login <username>
-## by default the super user will be logged in
+## The user defined in $USER_LOGIN in docksal-local.env will be logged in, if a
+## username is passed as a parameter that user will be logged in instead, if
+## neither are available the superuser will be logged in.
 
 is_mac ()
 {
@@ -18,8 +20,22 @@ is_mac ()
 PWD=`pwd`
 
 ABSOLUTE_DOCROOT=$PROJECT_ROOT/$DOCROOT/
+
 cd $ABSOLUTE_DOCROOT
-COMMAND="fin drush uli ${@}"
+
+# are there arguments passed to this script?
+if [ ! "$#" -eq "0" ];
+then
+  COMMAND="fin drush uli ${@}"
+else
+  echo "no arguments were passed in"
+  if [ $USER_LOGIN ];
+  then
+    COMMAND="fin drush uli ${USER_LOGIN}"
+  else
+    COMMAND="fin drush uli"
+  fi
+fi
 
 # make sure we trim the carriage return if is appears
 LOGIN_URL=`$COMMAND | tr -d '\r'`
