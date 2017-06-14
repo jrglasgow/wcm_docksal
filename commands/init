@@ -82,8 +82,27 @@ init_settings ()
   #check to ensure settings.local.php exists
   if [ ! -f "${SITEDIR_PATH}/settings.local.php" ]
   then
-    copy_settings_file "${PROJECT_ROOT}/.docksal/example.settings.local.php" "${SITEDIR_PATH}/settings.local.php"
+    copy_settings_file "${PROJECT_ROOT}/.docksal/examples/example.settings.local.php" "${SITEDIR_PATH}/settings.local.php"
   fi
+
+  #check to ensure settings.local.php exists
+  if [ ! -f "${SITEDIR_PATH}/drushrc.php" ]
+  then
+    copy_settings_file "${PROJECT_ROOT}/.docksal/examples/example.drushrc.php" "${SITEDIR_PATH}/drushrc.php"
+  fi
+
+  # ensure the virtualhost is getting loaded in drushrc.php
+  # ensure settings.local.php is getting loaded
+  if [[ ! -n $(grep "$options['l'] = 'http://${VIRTUAL_HOST}';" "${SITEDIR_PATH}/drushrc.php") ]]
+  then
+    SETTINGS_FILE="${SITEDIR_PATH}/settings.php"
+    # make the file writable
+    echo "
+\$options['l'] = 'http://${VIRTUAL_HOST}';
+" >> "${SITEDIR_PATH}/drushrc.php"
+    # make the file not writable
+  fi
+  exit 0
 
   #check to ensure settings.php exists
   if [ ! -f "${SITEDIR_PATH}/settings.php" ]
