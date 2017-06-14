@@ -21,7 +21,7 @@ $conf['file_chmod_directory'] = 0777;
 $conf['file_chmod_file'] = 0666;
 
 # Reverse proxy configuration (Docksal vhost-proxy)
-if (!drupal_is_cli()) {
+if (PHP_SAPI !== 'cli';) {
     $conf['reverse_proxy'] = TRUE;
     $conf['reverse_proxy_addresses'] = array($_SERVER['REMOTE_ADDR']);
     // HTTPS behind reverse-proxy
@@ -35,26 +35,24 @@ if (!drupal_is_cli()) {
     }
 }
 
+if (empty($settings['hash_salt'])) {
+    # there is no hash salt, so use this one
+    $settings['hash_salt'] = 'Drupal 8 Docksal hash salt';
+}
 
-
-#---- memcache settings/
-$conf['cache_class_cache_form'] = 'DrupalDatabaseCache';
-$conf['cache_default_class'] = 'MemCacheDrupal';
-
-$conf['memcache_key_prefix'] = 'tsa2_gov';
-$conf['memcache_servers'] = array(
-    'memcached1:11211' => 'default',
-    'memcached2:11211' => 'default',
-    'memcached3:11211' => 'default',
-    'memcached4:11211' => 'default',
+#---- Memcache Settings
+$settings['memcache']['servers'] = array(
+    //'memcached1:11211' => 'default',
+    //'memcached2:11211' => 'default',
+    //'memcached3:11211' => 'default',
+    //'memcached4:11211' => 'default',
+    'mcrouter:5500' => 'default',
+    //'nutcracker:22121' => 'default'
 );
-$conf['memcache_bins'] = array(
-    'cache' => 'default',
-);
+$settings['memcache']['bins'] = ['default' => 'default'];
+$settings['memcache']['key_prefix'] = 'docksal';
+$settings['cache']['default'] = 'cache.backend.memcache';
+$settings['memcache']['stampede_protection'] = TRUE;
 
-$conf['cache_backends'] = array();
-$conf['cache_backends'][] = 'sites/all/modules/contrib/memcache/memcache.inc';
-$conf['lock_inc'] = 'sites/all/modules/contrib/memcache/memcache-lock.inc';
-$conf['memcache_stampede_protection'] = TRUE;
-
-$conf['stage_file_proxy_origin'] = "https://www.tsa.gov";
+# uncomment and fill in your production server address
+#$conf['stage_file_proxy_origin'] = "https://www.example.com/drupal";

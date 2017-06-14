@@ -17,7 +17,7 @@ DOCROOT_PATH="${PROJECT_ROOT}/${DOCROOT}"
 SITEDIR_PATH="${DOCROOT_PATH}/sites/${SITE_DIRECTORY}"
 SQL_BACKUP_PATH="${PROJECT_ROOT}/.docksal/db"
 DEVELOP_SCRIPT="${PROJECT_ROOT}/.docksal/commands/develop"
-
+echo "VIRTUAL_HOST: ${VIRTUAL_HOST} - 20"
 #-------------------------- END: Settings --------------------------------
 
 #-------------------------- Helper functions --------------------------------
@@ -38,6 +38,16 @@ echo-yellow () { echo -e "${yellow}$1${NC}"; }
 is_windows ()
 {
 	local res=$(uname | grep 'CYGWIN_NT')
+	if [[ "$res" != "" ]]; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+is_mac ()
+{
+	local res=$(uname | grep 'Darwin')
 	if [[ "$res" != "" ]]; then
 		return 0
 	else
@@ -82,14 +92,19 @@ init_settings ()
   fi
 
   # ensure settings.local.php is getting loaded
-  if [[ ! -n $(grep "settings.local.php" "${SITEDIR_PATH}/settings.php") ]]
+  if [[ ! -n $(grep "require($local_conf_file_path);" "${SITEDIR_PATH}/settings.php") ]]
   then
+    SETTINGS_FILE="${SITEDIR_PATH}/settings.php"
+    # make the file writable
+    chmod 775 $SETTINGS_FILE
     echo "
 // Load local settings file if it exists.
 \$local_conf_file_path = __DIR__ . '/settings.local.php';
 if (file_exists(\$local_conf_file_path)) {
   require(\$local_conf_file_path);
-}" >> docroot/sites/default/settings.php
+}" >> $SETTINGS_FILE
+    # make the file not writable
+    chmod 555 $SETTINGS_FILE
   fi
 
   echo ""
@@ -152,16 +167,14 @@ do
   echo -e "${yellow_bg} Importing ${NC}${yellow} $f ...${NC}"
     case "$f" in
       *.sh)     bash $f;;
-      *.sql)    echo "UPDATE users SET mail=CONCAT('local_dev-', uid, '@${VIRTUAL_HOST}') WHERE uid <> 0;" | (pv $f && cat) |  fin db import; echo;;
-      *.sql.gz) echo "UPDATE users SET mail=CONCAT('local_dev-', uid, '@${VIRTUAL_HOST}') WHERE uid <> 0;" | (pv $f | gunzip && cat) |  fin db import; echo;;
+      *.sql)    echo "UPDATE users_field_data SET mail=CONCAT('local_dev-', uid, '@${VIRTUAL_HOST}') WHERE uid <> 0;" | (pv $f && cat) |  fin db import; echo;;
+      *.sql.gz) echo "UPDATE users_field_data SET mail=CONCAT('local_dev-', uid, '@${VIRTUAL_HOST}') WHERE uid <> 0;" | (pv $f | gunzip && cat) |  fin db import; echo;;
       *)        echo "$0: ignoring $f" ;;
     esac
 
 
 done
 
-
-echo "DEVELOP_SCRIPT: $DEVELOP_SCRIPT"
 if [ -f $DEVELOP_SCRIPT ]
 then
   echo ""
@@ -170,12 +183,13 @@ then
 fi
 
 
-VM_IP=`fin vm ip`
 if is_windows; then
 	echo-green "Add ${VIRTUAL_HOST} to your hosts file (/etc/hosts), e.g.:"
 	echo-green "${VM_IP} ${VIRTUAL_HOST}"
 	echo
 fi
+
+
 
 echo -en "${green_bg} DONE! ${NC} "
 echo -e "Open ${yellow}http://${VIRTUAL_HOST}${NC} in your browser to verify the setup."
