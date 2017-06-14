@@ -45,6 +45,16 @@ is_windows ()
 	fi
 }
 
+is_mac ()
+{
+	local res=$(uname | grep 'Darwin')
+	if [[ "$res" != "" ]]; then
+		return 0
+	else
+		return 1
+	fi
+}
+
 # Copy a settings file.
 # Skips if the destination file already exists.
 # @param $1 source file
@@ -160,8 +170,6 @@ do
 
 done
 
-
-echo "DEVELOP_SCRIPT: $DEVELOP_SCRIPT"
 if [ -f $DEVELOP_SCRIPT ]
 then
   echo ""
@@ -170,14 +178,21 @@ then
 fi
 
 
-VM_IP=`fin vm ip`
 if is_windows; then
 	echo-green "Add ${VIRTUAL_HOST} to your hosts file (/etc/hosts), e.g.:"
 	echo-green "${VM_IP} ${VIRTUAL_HOST}"
 	echo
 fi
 
+
+
 echo -en "${green_bg} DONE! ${NC} "
 echo -e "Open ${yellow}http://${VIRTUAL_HOST}${NC} in your browser to verify the setup."
+MYSQL_HOST_PORT=`fin config env | grep MYSQL | cut -d " " -f 2`
+echo -s "MySQL server can be accessed at ${yellow}${MYSQL_HOST_PORT}${NC}"
+if is_mac; then
+	open "http://${VIRTUAL_HOST}"
+fi
+
 
 #-------------------------- END: Execution --------------------------------

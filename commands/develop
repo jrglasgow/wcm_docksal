@@ -33,11 +33,10 @@ echo "";
 echo "Enable development modules"
 fin drush en devel search_krumo dblog views_ui context_ui stage_file_proxy diff mail_redirect update xhprof missing_module -y;
 
-
-echo "";
-echo "";
-echo "Run database updates";
-drush updb -y
+echo ""
+echo ""
+echo "Run database updates"
+fin drush updb -y
 
 fin drush dl utf8mb4_convert -y
 fin drush utf8mb4-convert-databases -y
