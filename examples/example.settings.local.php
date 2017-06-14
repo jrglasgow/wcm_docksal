@@ -21,7 +21,7 @@ $conf['file_chmod_directory'] = 0777;
 $conf['file_chmod_file'] = 0666;
 
 # Reverse proxy configuration (Docksal vhost-proxy)
-if (!drupal_is_cli()) {
+if (PHP_SAPI !== 'cli') {
     $conf['reverse_proxy'] = TRUE;
     $conf['reverse_proxy_addresses'] = array($_SERVER['REMOTE_ADDR']);
     // HTTPS behind reverse-proxy
