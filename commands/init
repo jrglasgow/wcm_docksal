@@ -102,7 +102,6 @@ init_settings ()
 " >> "${SITEDIR_PATH}/drushrc.php"
     # make the file not writable
   fi
-  exit 0
 
   #check to ensure settings.php exists
   if [ ! -f "${SITEDIR_PATH}/settings.php" ]
