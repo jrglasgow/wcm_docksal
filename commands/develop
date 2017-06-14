@@ -20,13 +20,13 @@ echo "DOCROOT_PATH: $DOCROOT_PATH"
 
 #echo "";
 #echo "";
-#echo "Disable Syslog and Autologout modules"
-#fin drush dis syslog autologout -y
+echo "Disable Syslog and Autologout modules"
+fin drush dis syslog autologout -y
 
 #echo "";
 #echo "";
-#echo "Enable development modules"
-#fin drush en devel search_krumo dblog views_ui context_ui stage_file_proxy diff mail_redirect update xhprof missing_module -y;
+echo "Enable development modules"
+fin drush en devel dblog views_ui context_ui stage_file_proxy diff update xhprof missing_module -y;
 
 echo ""
 echo ""

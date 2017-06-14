@@ -91,7 +91,6 @@ init_settings ()
     copy_settings_file "${SITEDIR_PATH}/default.settings.php" "${SITEDIR_PATH}/settings.php"
   fi
 
-  echo "checking ${SITEDIR_PATH}/settings.php"
   # ensure settings.local.php is getting loaded
   if [[ ! -n $(grep "require($local_conf_file_path);" "${SITEDIR_PATH}/settings.php") ]]
   then
