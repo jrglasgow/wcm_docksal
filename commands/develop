@@ -3,10 +3,16 @@
 ## enable development modules
 ##
 ## Usage: fin develop.sh
+SITE_DIRECTORY="default"
+DOCROOT_PATH="${PROJECT_ROOT}/${DOCROOT}"
+SITEDIR_PATH="${DOCROOT_PATH}/sites/${SITE_DIRECTORY}"
+SQL_BACKUP_PATH="${PROJECT_ROOT}/.docksal/db"
+DEVELOP_SCRIPT="${PROJECT_ROOT}/.docksal/commands/develop"
 START_DIRECTORY=`pwd`
+
 echo "DOCROOT_PATH: $DOCROOT_PATH"
 #cd $DOCROOT_PATH
-exit 0
+
 echo "";
 echo "";
 echo "Clear module list";

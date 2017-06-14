@@ -1,11 +1,11 @@
 bluesteel:
-  listen: 0.0.0.0:11811
+  listen: 0.0.0.0:22121
   hash: fnv1a_64
   distribution: ketama
   redis: false
   auto_eject_hosts: true
-  server_retry_timeout: 60000
-  server_failure_limit: 2
+  server_retry_timeout: 600
+  server_failure_limit: 5
   preconnect: true
   timeout: 500
   servers:
