@@ -28,7 +28,6 @@ if [ ! "$#" -eq "0" ];
 then
   COMMAND="fin drush uli ${@}"
 else
-  echo "no arguments were passed in"
   if [ $USER_LOGIN ];
   then
     COMMAND="fin drush uli ${USER_LOGIN}"

@@ -201,7 +201,7 @@ then
   bash $DEVELOP_SCRIPT
 fi
 
-VM_IP = `fin vm ip`
+VM_IP=`fin vm ip`
 if is_windows; then
 	echo-green "Add ${VIRTUAL_HOST} to your hosts file (/etc/hosts), e.g.:"
 	echo-green "${VM_IP} ${VIRTUAL_HOST}"
