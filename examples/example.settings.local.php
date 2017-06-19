@@ -55,8 +55,8 @@ $conf['memcache_bins'] = array(
 );
 
 $conf['cache_backends'] = array();
-$conf['cache_backends'][] = 'sites/all/modules/contrib/memcache/memcache.inc';
-$conf['lock_inc'] = 'sites/all/modules/contrib/memcache/memcache-lock.inc';
+$conf['cache_backends'][] = 'profiles/dhs_wcm/modules/contrib/memcache/memcache.inc';
+$conf['lock_inc'] = 'profiles/dhs_wcm/modules/contrib/memcache/memcache-lock.inc';
 $conf['memcache_stampede_protection'] = TRUE;
 
 # uncomment and fill in your production server address
