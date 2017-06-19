@@ -1,3 +1,4 @@
 db/*.sql
 db/*.sql.gz
 docksal-local.env
+private/*

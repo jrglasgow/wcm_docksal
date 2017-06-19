@@ -16,6 +16,7 @@ $databases['default']['default'] = array (
 
 # File system settings.
 $conf['file_temporary_path'] = '/tmp';
+$conf['file_private_path'] = '/var/www/.docksal/private';
 # Workaround for permission issues with NFS shares
 $conf['file_chmod_directory'] = 0777;
 $conf['file_chmod_file'] = 0666;
