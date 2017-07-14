@@ -21,7 +21,7 @@ echo "DOCROOT_PATH: $DOCROOT_PATH"
 #echo "";
 #echo "";
 echo "Disable Syslog and Autologout modules"
-fin drush dis syslog autologout -y
+fin drush pm-uninstall syslog autologout -y
 
 #echo "";
 #echo "";

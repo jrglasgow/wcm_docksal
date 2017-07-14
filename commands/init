@@ -6,7 +6,7 @@
 
 # Abort if anything fails
 set -e
-
+alias drush='fin drush -i /var/www/.docksal/drush_commands'
 #-------------------------- Settings --------------------------------
 
 # PROJECT_ROOT is passed from fin.
@@ -200,7 +200,7 @@ then
   bash $DEVELOP_SCRIPT
 fi
 
-VM_IP = `fin vm ip`
+VM_IP=`fin vm ip`
 if is_windows; then
 	echo-green "Add ${VIRTUAL_HOST} to your hosts file (/etc/hosts), e.g.:"
 	echo-green "${VM_IP} ${VIRTUAL_HOST}"
@@ -213,8 +213,8 @@ echo -en "${green_bg} DONE! ${NC} "
 echo -e "Open ${yellow}http://${VIRTUAL_HOST}${NC} in your browser to verify the setup."
 MYSQL_HOST_PORT=`fin config env | grep MYSQL | cut -d " " -f 2`
 echo -e "MySQL server can be accessed at ${yellow}${MYSQL_HOST_PORT}${NC}"
+fin login
 if is_mac; then
-	open "http://${VIRTUAL_HOST}"
   say "Your Docksal project initialization is completed"
 fi
 
