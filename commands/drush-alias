@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+## Set drush aliases
+##
+## Usage: fin drush-alias
+
+alias drush='fin drush -i /var/www/.docksal/drush_commands'
