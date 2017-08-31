@@ -6,6 +6,7 @@
 
 # Abort if anything fails
 set -e
+alias drush='fin drush -i /var/www/.docksal/drush_commands'
 
 #-------------------------- Settings --------------------------------
 
@@ -173,6 +174,22 @@ else
 	fin up
 fi
 
+echo "";
+echo -e "${NC}${green}Installing additional PHP extension(s) ...${NC}";
+# add php extensions
+# libsodium
+fin exec 'sudo apt-get update'
+echo -e "${NC}${green}libsodium...${NC}";
+fin exec 'sudo apt-get install libsodium-dev -y'
+fin exec 'sudo apt-get -y --force-yes --no-install-recommends install php-pear libssl-dev php5-dev';
+fin exec 'sudo pecl install libsodium-1.0.6';
+echo -e "${NC}${green}libsodium installed${NC}";
+echo ""
+echo ""
+echo -e "${NC}${yellow}Restarting services to utilize the new PHP extensions${NC}"
+echo ""
+fin restart
+
 echo "Waiting 10s for MySQL to initialize...";
 sleep 10
 
@@ -201,13 +218,12 @@ then
   bash $DEVELOP_SCRIPT
 fi
 
-VM_IP=`fin vm ip`
+VM_IP=`fin vm ip`;
 if is_windows; then
 	echo-green "Add ${VIRTUAL_HOST} to your hosts file (/etc/hosts), e.g.:"
 	echo-green "${VM_IP} ${VIRTUAL_HOST}"
 	echo
 fi
-
 
 
 echo -en "${green_bg} DONE! ${NC} "
