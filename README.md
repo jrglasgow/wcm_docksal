@@ -26,4 +26,11 @@ The init script will do the following
     1. repeats for all db backup files in the directory in alphabetical order, so the first one loaded will be truncated, try to only put one file in the db directory at a time
 
 
+Drush
+  To run Drush in the project either use 'fin drush' or add the following bash alias
+  alias drush='fin drush'
+  An alias is already added when running 'fin init'
+  alias drush='fin drush -i /var/www/.docksal/drush_commands'
+  which allows you to also add additional drush commands or extensions to .docksal/drush_commands
+
 To restart servers type <code>fin reset</code>. To start again with fresh servers and fresh DB import run <code>fin init</code> again.
