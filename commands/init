@@ -174,21 +174,21 @@ else
 	fin up
 fi
 
-echo "";
-echo -e "${NC}${green}Installing additional PHP extension(s) ...${NC}";
-# add php extensions
-# libsodium
-fin exec 'sudo apt-get update'
-echo -e "${NC}${green}libsodium...${NC}";
-fin exec 'sudo apt-get install libsodium-dev -y'
-fin exec 'sudo apt-get -y --force-yes --no-install-recommends install php-pear libssl-dev php5-dev';
-fin exec 'sudo pecl install libsodium-1.0.6';
-echo -e "${NC}${green}libsodium installed${NC}";
-echo ""
-echo ""
-echo -e "${NC}${yellow}Restarting services to utilize the new PHP extensions${NC}"
-echo ""
-fin restart
+#echo "";
+#echo -e "${NC}${green}Installing additional PHP extension(s) ...${NC}";
+## add php extensions
+## libsodium
+#fin exec 'sudo apt-get update'
+#echo -e "${NC}${green}libsodium...${NC}";
+#fin exec 'sudo apt-get install libsodium-dev -y'
+#fin exec 'sudo apt-get -y --force-yes --no-install-recommends install php-pear libssl-dev php5-dev';
+#fin exec 'sudo pecl install libsodium-1.0.6';
+#echo -e "${NC}${green}libsodium installed${NC}";
+#echo ""
+#echo ""
+#echo -e "${NC}${yellow}Restarting services to utilize the new PHP extensions${NC}"
+#echo ""
+#fin restart
 
 echo "Waiting 10s for MySQL to initialize...";
 sleep 10
