@@ -3,5 +3,5 @@
 ## Set drush aliases
 ##
 ## Usage: fin drush-alias
-
-alias drush='fin drush -i /var/www/.docksal/drush_commands'
+echo "execute the following command or add it to your .bash_rc file"
+echo "alias drush='fin drush -i /var/www/.docksal/drush_commands'"
