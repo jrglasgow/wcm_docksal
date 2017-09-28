@@ -29,6 +29,7 @@ services:
     extends:
       file: ${HOME}/.docksal/stacks/services.yml
       service: cli
+    command: /var/www/.docksal/etc/cli/start.sh
 
   # Memcached
   memcached1:
