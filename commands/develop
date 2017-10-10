@@ -32,7 +32,7 @@ echo "";
 echo "";
 echo "Enable development modules"
 fin drush en devel search_krumo dblog views_ui context_ui stage_file_proxy diff mail_redirect update xhprof missing_module -y;
-
+fin drush dl documentation
 echo ""
 echo ""
 echo "Run database updates"

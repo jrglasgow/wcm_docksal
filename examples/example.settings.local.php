@@ -61,4 +61,19 @@ $conf['lock_inc'] = 'profiles/dhs_wcm/modules/contrib/memcache/memcache-lock.inc
 $conf['memcache_stampede_protection'] = TRUE;
 
 # uncomment and fill in your production server address
-$conf['stage_file_proxy_origin'] = "https://www.example.com/drupal";
+#$conf['stage_file_proxy_origin'] = "https://www.example.com/drupal";
+
+/**
+ * If you are using the SMTP module you can use this to use a personal email
+ * account
+ */
+#$conf['smtp_host'] = 'smtp.gmail.com';
+#$conf['smtp_port'] = '587';
+#$conf['smtp_protocol'] = 'tls';
+#$conf['smtp_username'] = 'user@example.com';
+#$conf['smtp_password'] = '*************';
+
+/**
+ * if you want to reroute emails from the development system
+ */
+#$conf['smtp_reroute_address'] = 'user@example.com';
