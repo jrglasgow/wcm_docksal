@@ -214,8 +214,9 @@ echo -en "${green_bg} DONE! ${NC} "
 echo -e "Open ${yellow}http://${VIRTUAL_HOST}${NC} in your browser to verify the setup."
 MYSQL_HOST_PORT=`fin config env | grep MYSQL | cut -d " " -f 2`
 echo -e "MySQL server can be accessed at ${yellow}${MYSQL_HOST_PORT}${NC}"
+fin login
 if is_mac; then
-	open "http://${VIRTUAL_HOST}"
+#	open "http://${VIRTUAL_HOST}"
   say "Your Docksal project initialization is completed"
 fi
 

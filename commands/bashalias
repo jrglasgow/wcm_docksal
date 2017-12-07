@@ -1,0 +1,7 @@
+#!/bin/bash
+
+## Adds aliases to the current bash session
+##
+## Usage: fin alias
+echo "use the following alias"
+echo "alias drush='fin drush -i /var/www/.docksal/drush_commands'"
