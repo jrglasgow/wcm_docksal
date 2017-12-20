@@ -1,0 +1,20 @@
+FROM solr:6
+
+MAINTAINER James Glasgow <james@jrglasgow.com>
+
+#RUN apt-get update && \
+#  apt-get install libsodium-dev -y && \
+#  apt-get -y --force-yes --no-install-recommends install php-pear libssl-dev php7.0-dev && \
+#  pecl channel-update pecl.php.net && \
+#  pecl install libsodium-1.0.6 && \
+#  echo "extension=libsodium.so" > /etc/php/7.0/fpm/php.ini  &&\
+#  echo "extension=libsodium.so" > /etc/php/7.0/cli/php.ini
+#
+#RUN DEBIAN_FRONTEND=noninteractive apt-get clean && \
+#    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+#RUN /opt/docker-solr/scripts/solr-create -c emerald
+RUN mkdir -p /opt/solr/server/solr/emerald/conf
+COPY config/* /opt/solr/server/solr/emerald/
+COPY config/* /opt/solr/server/solr/emerald/conf/
+#RUN  curl -d 'action=CREATE&name=emerald&instanceDir=emerald&name=emerald' http://localhost:8983/solr/admin/cores
+#RUN echo "curl -d 'action=CREATE&name=emerald&instanceDir=emerald&name=emerald' http://localhost:8983/solr/admin/cores" >> /opt/docker-solr/scripts/docker-entrypoint.sh
