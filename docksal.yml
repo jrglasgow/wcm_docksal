@@ -57,6 +57,15 @@ services:
       service: memcached
     hostname: memcached4
 
+  solr:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: solr
+    image: ${COMPOSE_PROJECT_NAME_SAFE}_solr
+    build: ${PROJECT_ROOT}/.docksal/services/solr
+    ports:
+      - "${SOLR_PORT_MAPPING:-8983}"
+
   #mcrouter:
   #  hostname: mcrouter
   #  image: ${MCROUTER_IMAGE:-m3adow/mcrouter:latest}
