@@ -9,7 +9,6 @@ SITEDIR_PATH="${DOCROOT_PATH}/sites/${SITE_DIRECTORY}"
 SQL_BACKUP_PATH="${PROJECT_ROOT}/.docksal/db"
 DEVELOP_SCRIPT="${PROJECT_ROOT}/.docksal/commands/develop"
 START_DIRECTORY=`pwd`
-DEVELOP_LOCAL_SCRIPT='${PROJECT_ROOT}/.docksal/commands/develop.local.sh'
 
 echo "DOCROOT_PATH: $DOCROOT_PATH"
 #cd $DOCROOT_PATH
@@ -42,11 +41,5 @@ fin drush updb -y
 fin drush dl utf8mb4_convert -y
 fin drush utf8mb4-convert-databases -y
 
-if [ -f $DEVELOP_LOCAL_SCRIPT ]
-then
-  echo ""
-  echo -e "${green_bg} Step 4 ${NC}${green} Running Local Development script...${NC}"
-  bash $DEVELOP_LOCAL_SCRIPT
-fi
 
 cd $START_DIRECTORY

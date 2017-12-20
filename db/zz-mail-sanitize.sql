@@ -1,1 +1,1 @@
-UPDATE users SET mail=CONCAT('local_dev-', uid, '@${VIRTUAL_HOST}') WHERE uid <> 0;
+UPDATE users SET mail=CONCAT('local_dev-', uid, '@docksal') WHERE uid <> 0;
