@@ -9,7 +9,7 @@ SITEDIR_PATH="${DOCROOT_PATH}/sites/${SITE_DIRECTORY}"
 SQL_BACKUP_PATH="${PROJECT_ROOT}/.docksal/db"
 DEVELOP_SCRIPT="${PROJECT_ROOT}/.docksal/commands/develop"
 START_DIRECTORY=`pwd`
-DEVELOP_LOCAL_SCRIPT='develop.local.sh'
+DEVELOP_LOCAL_SCRIPT='${PROJECT_ROOT}/.docksal/commands/develop.local.sh'
 
 echo "DOCROOT_PATH: $DOCROOT_PATH"
 #cd $DOCROOT_PATH
