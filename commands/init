@@ -86,7 +86,7 @@ init_settings ()
     copy_settings_file "${PROJECT_ROOT}/.docksal/examples/example.settings.local.php" "${SITEDIR_PATH}/settings.local.php"
   fi
 
-  #check to ensure settings.local.php exists
+  #check to ensure drushrc.php exists
   if [ ! -f "${SITEDIR_PATH}/drushrc.php" ]
   then
     copy_settings_file "${PROJECT_ROOT}/.docksal/examples/example.drushrc.php" "${SITEDIR_PATH}/drushrc.php"
