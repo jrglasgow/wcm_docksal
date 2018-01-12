@@ -147,6 +147,75 @@ site_install ()
 	fin exec "PHP_OPTIONS="'"-d sendmail_path=`which true`"'" drush site-install -y --site-name='My Drupal 7 Site'"
 }
 
+check_ext_pack () {
+  #! /bin/bash
+	#
+	#: Title       : updateVboxExt
+	#: Date Created: Fri May 13 13:54:26 PDT 2011
+	#: Last Edit   : Fri May 13 14:34:37 PDT 2011
+	#: Author      : please_try_again
+	#: Version     : 1.0
+	#: Description : Install or update VirtualBox Extension pack
+	# parts from https://gist.github.com/seraphyn/4347126
+
+	pkg_sit="http://download.virtualbox.org/virtualbox/"
+	ext_nam="Oracle VM VirtualBox Extension Pack"
+	pkg_ext="vbox-extpack"
+	#
+
+	which vboxmanage > /dev/null 2>&1 || exec echo "vboxmanage not found"
+	ver=$(vboxmanage -v)
+
+	pkg_nam="${ext_nam// /_}"
+	pkg_tgz="${pkg_nam}.tgz"
+	pkg_ver="${ver%%r*}"
+
+	pkg_blt="${ver##*r}"
+
+	pkg_url="${pkg_sit}${pkg_ver}/${pkg_nam}-${pkg_ver}-${pkg_blt}.${pkg_ext}"
+
+	echo -e "${green} VirtualBox:                $ver${NC}"
+	# check if ExtensionPack for current VirtualBox version already install
+
+	ext_ver=`vboxmanage list extpacks | grep Version | awk '{print $2}'`
+	ext_revision=`vboxmanage list extpacks | grep Revision | awk '{print $2}'`
+	if [[ $ver = "${ext_ver}r${ext_revision}" ]]; then
+	  echo -e "${green} VirtualBox Extension Pack: ${ext_ver}r${ext_revision} - ${NC}${green_bg}Matches${NC}"
+	else
+		if [[ $ext_ver = "" ]]; then
+			echo -e "${green} VirtualBox Extension Pack: ${red}No Extension Pack installed${NC}"
+		else
+			echo -e "${green} VirtualBox Extension Pack: ${ext_ver}r${ext_revision} - ${red}Does Not Match${NC}"
+		fi
+
+		# download VirtualBox Extension Pack
+		echo "- Downloading $pkg_url ..."
+		curl $pkg_url > $pkg_tgz
+
+		echo -e ""
+		echo -e ""
+		echo -e ""
+		echo -e "Stop all VMs"
+		echo -e "Installation of VirtualBox Extension Pack will fail"
+		echo -e "if all VMs are not stopped."
+		echo -e ""
+		echo -e ""
+		read -p "Press Enter to continue:"
+
+		# Install newer ExtensionPack version
+		if [ -f ./$pkg_tgz ] ; then
+			echo "- installing $ext_nam $ver"
+			vboxmanage extpack install $pkg_tgz --replace
+			rm $pkg_tgz
+		else
+			echo "No extension pack found"
+		fi
+		echo -e "${green}Restarting the Docksal VM${NC}"
+		fin vm restart
+	fi
+	echo ""
+}
+
 #-------------------------- END: Functions --------------------------------
 
 #-------------------------- Execution --------------------------------
@@ -160,6 +229,11 @@ if [ ! -d $SQL_BACKUP_PATH ]
 then
   echo "Cannot continue, backup file cannot be located. Please put backup file or symlink at $SQL_BACKUP_PATH"
   exit 1
+fi
+
+if [[ $DOCKER_NATIVE -eq 0 ]]; then
+	echo -e "${green_bg} Step 0 ${NC}${green} Checking VirtualBox Extension Pack version${NC}"
+	check_ext_pack
 fi
 
 # Project initialization steps
@@ -190,10 +264,8 @@ do
       *.sh)     bash $f;;
       *.sql)    pv $f | fin db import --no-truncate; echo;;
       *.sql.gz) pv $f | gunzip |  fin db import; echo;;
-      *)        echo "$0: ignoring $f" ;;
+      *)        echo "$0: ignoring $f";;
     esac
-
-
 done
 
 if [ -f $DEVELOP_SCRIPT ]

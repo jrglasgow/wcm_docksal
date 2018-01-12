@@ -2,9 +2,10 @@ Docksal config directory for Drupal for the Web Content Management as a Service 
 
 The goal is to keep this up to date with the current state of the platform, app servers, version etc... so tenants can keep their local development environments up to date.
 
-Installation:
+## Installation:
 1. install [Docksal](http://docksal.io/)
-1. copy this repository to your project root as a sibling directory to your docroot/
+1. copy this repository to your project root as a sibling directory to your docroot/ in .docksal
+    git clone {repository uri} .docksal
 1. copy or symlink your database backup (*.sql or *.sql.gz) into db/ this will get loaded on initialization
 1. from the terminal type <code>fin init</code>
 
