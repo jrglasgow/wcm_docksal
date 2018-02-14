@@ -41,7 +41,7 @@ LOGIN_URL=`$COMMAND | tr -d '\r'`
 echo $LOGIN_URL
 
 if is_mac; then
-  open $LOGIN_URL
+  open -a "Google Chrome" --args $LOGIN_URL
 fi
 
 cd $PWD
