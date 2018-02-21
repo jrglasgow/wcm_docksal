@@ -39,12 +39,10 @@ if (empty($settings['hash_salt'])) {
 
 #---- Memcache Settings
 $settings['memcache']['servers'] = array(
-    //'memcached1:11211' => 'default',
-    //'memcached2:11211' => 'default',
-    //'memcached3:11211' => 'default',
-    //'memcached4:11211' => 'default',
-    'mcrouter:5500' => 'default',
-    //'nutcracker:22121' => 'default'
+    'memcached1:11211' => 'default',
+    'memcached2:11211' => 'default',
+    'memcached3:11211' => 'default',
+    'memcached4:11211' => 'default',
 );
 $settings['memcache']['bins'] = ['default' => 'default'];
 $settings['memcache']['key_prefix'] = 'docksal';
