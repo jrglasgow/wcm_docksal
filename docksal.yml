@@ -29,8 +29,8 @@ services:
     extends:
       file: ${HOME}/.docksal/stacks/services.yml
       service: cli
-    image: ${COMPOSE_PROJECT_NAME_SAFE}_cli
-    build: ${PROJECT_ROOT}/.docksal/services/cli
+    #image: ${COMPOSE_PROJECT_NAME_SAFE}_cli
+    #build: ${PROJECT_ROOT}/.docksal/services/cli
     #command: /var/www/.docksal/etc/cli/start.sh
     environment:
       - XDEBUG_ENABLED=1
