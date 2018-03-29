@@ -26,18 +26,18 @@ cd $ABSOLUTE_DOCROOT
 # are there arguments passed to this script?
 if [ ! "$#" -eq "0" ];
 then
-  COMMAND="fin drush uli ${@}"
+  COMMAND="fin drush-launcher uli ${@}"
 else
-  echo "no arguments were passed in"
+  #echo "no arguments were passed in"
   if [ $USER_LOGIN ];
   then
-    COMMAND="fin drush uli ${USER_LOGIN}"
+    COMMAND="fin drush-launcher uli ${USER_LOGIN}"
   else
-    COMMAND="fin drush uli"
+    COMMAND="fin drush-launcher uli"
   fi
 fi
 
-# make sure we trim the carriage return if is appears
+# make sure we trim the carriage return if it appears
 LOGIN_URL=`$COMMAND | tr -d '\r'`
 echo $LOGIN_URL
 

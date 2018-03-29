@@ -12,25 +12,31 @@ START_DIRECTORY=`pwd`
 
 echo "DOCROOT_PATH: $DOCROOT_PATH"
 #cd $DOCROOT_PATH
+echo ""
+echo ""
+echo "Run database updates"
 
+fin drush-launcher updatedb --entity-updates -y
+fin drush-launcher updatedb --entity-updates -y
+fin drush-launcher updatedb --entity-updates -y
 #echo "";
 #echo "";
 #echo "Clear Caches"
-#fin drush cr
+fin drush-launcher cr
 
 #echo "";
 #echo "";
 echo "Disable Syslog and Autologout modules"
-fin drush pm-uninstall syslog autologout -y
+fin drush-launcher pm-uninstall syslog autologout -y
 
 #echo "";
 #echo "";
+
+# devel got disabled improperly somehow
+fin drush-launcher ev "\Drupal\system\Entity\Menu::load('devel')->delete();"
 echo "Enable development modules"
-fin drush en devel dblog views_ui context_ui stage_file_proxy diff update xhprof missing_module -y;
+fin drush-launcher en devel dblog views_ui context_ui stage_file_proxy diff update xhprof missing_module -y;
+fin drush-launcher dl documentation
 
-echo ""
-echo ""
-echo "Run database updates"
-fin drush updb -y
 
 cd $START_DIRECTORY

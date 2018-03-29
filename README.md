@@ -19,17 +19,15 @@ The init script will do the following
     - memcached
     - mcrouter - for testing
     - nutcracker/twemproxy - for testing
-1. import the database 
-    1. truncates the database named default
-    1. loads the database file in 
-    1. sanitizes the user emails
-    1. repeats for all db backup files in the directory in alphabetical order, so the first one loaded will be truncated, try to only put one file in the db directory at a time
+1. import the database
+    1. if file is *.sql.gz - truncate the 'default' database
+    1. imports the database file into 'default' database
+    1. sanitizes the user emails - no truncation as it is not in a *.sql.gz file
+    1. Repeats for all databases in alphabetical order,
 
 
 Drush
   To run Drush in the project either use 'fin drush' or add the following bash alias
-  alias drush='fin drush'
-  An alias is already added when running 'fin init'
   alias drush='fin drush -i /var/www/.docksal/drush_commands'
   which allows you to also add additional drush commands or extensions to .docksal/drush_commands
 

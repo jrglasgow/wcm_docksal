@@ -6,7 +6,7 @@
 
 # Abort if anything fails
 set -e
-alias drush='fin drush -i /var/www/.docksal/drush_commands'
+alias drush='fin drush-launcher -i /var/www/.docksal/drush_commands'
 
 #-------------------------- Settings --------------------------------
 
@@ -181,13 +181,13 @@ sleep 10
 
 echo ""
 echo -e "${green_bg} Step 3 ${NC}${green} Restoring backup...${NC}"
-for f in $SQL_BACKUP_PATH/*.sql.gz
+for f in $SQL_BACKUP_PATH/*.sql*
 do
   echo -e "${yellow_bg} Importing ${NC}${yellow} $f ...${NC}"
     case "$f" in
       *.sh)     bash $f;;
-      *.sql)    echo "UPDATE users_field_data SET mail=CONCAT('local_dev-', uid, '@${VIRTUAL_HOST}') WHERE uid <> 0;" | (pv $f && cat) |  fin db import; echo;;
-      *.sql.gz) echo "UPDATE users_field_data SET mail=CONCAT('local_dev-', uid, '@${VIRTUAL_HOST}') WHERE uid <> 0;" | (pv $f | gunzip && cat) |  fin db import; echo;;
+      *.sql)    pv $f |  fin db import --no-truncate; echo;;
+      *.sql.gz) pv $f | gunzip |  fin db import; echo;;
       *)        echo "$0: ignoring $f" ;;
     esac
 

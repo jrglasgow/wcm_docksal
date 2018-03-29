@@ -52,4 +52,4 @@ $settings['cache']['default'] = 'cache.backend.memcache';
 $settings['memcache']['stampede_protection'] = TRUE;
 
 # uncomment and fill in your production server address
-#$conf['stage_file_proxy_origin'] = "https://www.example.com/drupal";
+#$config['stage_file_proxy.settings']['origin'] = 'http://example.com'; // no trailing slash
