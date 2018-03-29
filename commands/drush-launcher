@@ -1,0 +1,10 @@
+#!/bin/bash
+
+## run a drush command on the drush in the site's vendor directory
+##
+## Usage: fin drush {command} {arguments}
+
+PROFILE="${TENANT}_gov"
+DRUSH="/var/www/docroot/profiles/${PROFILE}/vendor/drush/drush/drush --uri=http://${TENANT}.docksal --root=/var/www/docroot/"
+#echo "DRUSH: \"${DRUSH} $@\""
+fin exec "$DRUSH $@"
