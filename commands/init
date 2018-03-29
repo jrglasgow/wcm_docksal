@@ -260,15 +260,9 @@ do
   echo -e "${yellow_bg} Importing ${NC}${yellow} $f ...${NC}"
     case "$f" in
       *.sh)     bash $f;;
-<<<<<<< HEAD
-      *.sql)    pv $f |  fin db import --no-truncate; echo;;
-      *.sql.gz) pv $f | gunzip |  fin db import; echo;;
-      *)        echo "$0: ignoring $f" ;;
-=======
       *.sql)    pv $f | fin db import --no-truncate; echo;;
       *.sql.gz) pv $f | gunzip |  fin db import; echo;;
       *)        echo "$0: ignoring $f";;
->>>>>>> 8a2f1335a31598b4b2c687e5a333191a941739bb
     esac
 done
 
