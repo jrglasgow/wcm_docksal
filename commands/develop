@@ -39,7 +39,7 @@ echo "Run database updates"
 fin drush updb -y
 
 fin drush dl utf8mb4_convert -y
-fin drush utf8mb4-convert-databases -y
+#fin drush utf8mb4-convert-databases -y
 
 
 cd $START_DIRECTORY
